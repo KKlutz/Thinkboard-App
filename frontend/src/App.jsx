@@ -11,6 +11,7 @@ const App = () => {
 
       <div className="absolute inset-0 -z-10 size-full items-center px-5 py-24 [background:radial-gradient(130%_130%_at_50%_10%,#181818_70%,#ea6947_140%)]" />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/create" element={<Create />} />
         <Route path="/note/:id" element={<NoteDetail />} />
