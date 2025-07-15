@@ -4,7 +4,7 @@ import axios from "axios";
 //  import.meta.env.MODE === "development"
 //    ? "http://localhost:5050/api"
 //   : "thinkboard-backend-production.up.railway.app/api";
-const BASE_URL = "thinkboard-backend-production.up.railway.app/api";
+const BASE_URL = "https://thinkboard-backend-production.up.railway.app/api";
 
 const api = axios.create({
   baseURL: BASE_URL,
