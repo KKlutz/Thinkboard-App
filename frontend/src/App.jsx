@@ -2,9 +2,10 @@ import { Routes, Route } from "react-router";
 import Home from "./pages/Home.jsx";
 import Create from "./pages/Create.jsx";
 import NoteDetail from "./pages/NoteDetail.jsx";
+import api from "../lib/axios.api.js";
 
 const App = () => {
-  console.log("isi : ....");
+  console.log("isi :::::: ....");
   console.log(api.get("/notes"));
   return (
     <div className="relative size-full">

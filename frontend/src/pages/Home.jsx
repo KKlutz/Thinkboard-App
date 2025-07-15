@@ -12,8 +12,7 @@ const Home = () => {
   const [isRateLimit, setIsRateLimit] = useState(false);
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  console.log("isi : ....");
-  console.log(api.get("/notes"));
+
   // fetch notes on the first mounting (render)
   useEffect(() => {
     const fetchNotes = async () => {
