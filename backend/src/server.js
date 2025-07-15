@@ -18,6 +18,13 @@ if (process.env.NODE_ENV !== "production") {
       origin: "http://localhost:5173",
     })
   );
+} else {
+  app.use(
+    cors({
+      origin: "https://thinkboard-app-phi.vercel.app",
+      methods: ["GET", "POST", "PUT", "DELETE"],
+    })
+  );
 }
 
 // Middleware to parse JSON requests bodies
@@ -34,6 +41,9 @@ app.use((req, _, next) => {
 });
 
 // Route handlers for notes
+app.use("/", (_, res) => {
+  res.status(200).send("Belum ke redirect ke api/notes.");
+});
 app.use("/api/notes", notesRoute);
 
 if (process.env.NODE_ENV === "production") {
