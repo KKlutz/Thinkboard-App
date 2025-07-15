@@ -40,10 +40,12 @@ app.use((req, _, next) => {
   next(); // next() to pass control to the next middleware or route handler
 });
 
-// Route handlers for notes
-app.use("/", (_, res) => {
-  res.status(200).send("Belum ke redirect ke api/notes.");
+// Redirect root endpoint to /api/notes endpoint
+app.get("/", (_, res) => {
+  res.redirect("/api/notes");
 });
+
+// Route handlers for notes
 app.use("/api/notes", notesRoute);
 
 if (process.env.NODE_ENV === "production") {
