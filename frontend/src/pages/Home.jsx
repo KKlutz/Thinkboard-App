@@ -7,6 +7,7 @@ import RateLimited from "../components/RateLimited.jsx";
 import NoteCard from "../components/NoteCard.jsx";
 import NotesEmpty from "../components/NotesEmpty.jsx";
 import Jumbotron from "../components/Jumbotron.jsx";
+import Pagination from "../components/Pagination.jsx";
 
 const Home = () => {
   const [isRateLimit, setIsRateLimit] = useState(false);
@@ -61,6 +62,8 @@ const Home = () => {
             ))}
           </div>
         )}
+
+        {!isRateLimit && !isLoading && notes?.length !== 0 && <Pagination />}
       </div>
     </main>
   );
