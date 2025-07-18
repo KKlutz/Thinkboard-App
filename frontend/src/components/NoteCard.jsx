@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { useLocation, Link } from "react-router";
 import { Trash2, SquarePen } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -6,6 +6,9 @@ import { formatDate } from "../lib/utils";
 import api from "../lib/axios.api.js";
 
 const NoteCard = ({ note, setNotes }) => {
+  const location = useLocation();
+
+  // Delete function
   const handlerDelete = async (e, id) => {
     e.preventDefault();
 
@@ -24,6 +27,7 @@ const NoteCard = ({ note, setNotes }) => {
   return (
     <Link
       to={`/note/${note._id}`}
+      state={{ from: location }}
       className="card bg-base-200 hover:shadow-xl transition-all duration-150 border-t-2 border-solid border-accent"
     >
       <div className="card-body gap-3">

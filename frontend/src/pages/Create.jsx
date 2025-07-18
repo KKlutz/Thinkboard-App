@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import { ArrowLeftIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -11,6 +11,7 @@ const Create = () => {
   const [noteCreated, setNoteCreated] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const submitNote = async (e) => {
     e.preventDefault();
@@ -45,7 +46,10 @@ const Create = () => {
     <main className="relative z-99 min-h-screen">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
-          <Link to="/home" className="btn btn-ghost mb-6 text-base">
+          <Link
+            to={location.state?.from ? `/home${location.state.from.search}` : "/home"}
+            className="btn btn-ghost mb-6 text-base"
+          >
             <ArrowLeftIcon className="size-5 mt-[0.15rem]" />
             <span>Back to Notes</span>
           </Link>
