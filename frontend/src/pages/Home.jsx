@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useSearchParams } from "react-router";
 
 import api from "../lib/axios.api.js";
 import Navbar from "../components/Navbar.jsx";
@@ -10,6 +11,13 @@ import Jumbotron from "../components/Jumbotron.jsx";
 import Pagination from "../components/Pagination.jsx";
 
 const Home = () => {
+  const [queryParams, setQueryParams] = useSearchParams();
+
+  const orderBy = queryParams.get("order") || "desc";
+  const limitPage = parseInt(queryParams.get("limit")) || 6;
+  const currentPage = parseInt(queryParams.get("page")) || 1;
+  const [totalPages, setTotalPages] = useState(1);
+
   const [isRateLimit, setIsRateLimit] = useState(false);
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,9 +31,17 @@ const Home = () => {
         // const data = await res.json();
 
         // Get data API with Axios
-        const res = await api.get("/notes");
+        const res = await api.get("/notes", {
+          params: {
+            order: orderBy,
+            limit: limitPage,
+            page: currentPage,
+          },
+        });
 
         setNotes(res.data.notes);
+        setTotalPages(res.data.totalPages);
+
         setIsRateLimit(false);
       } catch (error) {
         console.error("Error fetch notes: ", error);
@@ -40,7 +56,11 @@ const Home = () => {
     };
 
     fetchNotes();
-  }, []);
+  }, [currentPage]);
+
+  const handlerPageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) setQueryParams({ page: newPage });
+  };
 
   return (
     <main className="relative z-99 min-h-screen ">
@@ -63,7 +83,13 @@ const Home = () => {
           </div>
         )}
 
-        {!isRateLimit && !isLoading && notes?.length !== 0 && <Pagination />}
+        {!isRateLimit && !isLoading && notes?.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onChangePages={handlerPageChange}
+          />
+        )}
       </div>
     </main>
   );
